@@ -6,9 +6,18 @@ module.exports = function () {
 
   // The path to identify the agent that owns the created intent.
   const agentPath = intentsClient.projectAgentPath('test-pclcyl');
-
+  intentsClient
+  .listIntents({parent: agentPath})
+  .then((responses) => {
+  // The array of Intents is the 0th element of the response.
+    const resources = responses[0];
+    // Loop through and find the Intent we wish to update.
+    for (let i = 0; i < resources.length; i++) {
+      console.log(resources[i]);
+    }
+  });
   const intent =   {
-      "displayName": "新的Intents",
+      "displayName": "常見問題",
       "priority": 500000,
       "webhookState": "WEBHOOK_STATE_ENABLED",
       "trainingPhrases": [
@@ -19,6 +28,14 @@ module.exports = function () {
               "text": "這邊是訓練語句"
             }
           ]
+        },
+        {
+          "type": "EXAMPLE",
+          "parts": [
+            {
+              "text": "測試測試"
+            }
+          ]
         }
       ],
       "action": "",//Action and parameters
@@ -26,7 +43,7 @@ module.exports = function () {
         {
           "text": {
             "text": [
-              "成功囉，這裡是機器人回覆"
+              "成功囉，這裡是機器人回覆", "失敗囉，這裡是機器人回覆"
             ]
           }
         }
@@ -43,4 +60,3 @@ module.exports = function () {
   //console.log(`Intent ${responses[0].name} created`);
   console.log(createIntentRequest);
 };
-//https://dialogflow.googleapis.com/v2/projects/test-pclcyl/agent/intents
