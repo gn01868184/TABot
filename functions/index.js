@@ -6,7 +6,7 @@ const functions = require('firebase-functions');
 //const http = require('http');
 //const neo4j = require('neo4j-driver');
 //const axios = require('axios');
-//const intentsCreate = require('./intentsCreate.js');
+const intentsCreate = require('./intentsCreate.js');
 const sheetsGet = require('./sheetsGet.js');
 const sheetsUpdate = require('./sheetsUpdate.js');
 const entitiesUpdate = require('./entitiesUpdate.js');
@@ -17,12 +17,7 @@ const app = dialogflow({
   clientId: '48279450292-dqn0hajau3qlq98qncipo4g50rbderpj.apps.googleusercontent.com',
 });
 
-app.intent('新增Entities', (conv) => {
-  entitiesUpdate(conv.body.queryResult.parameters.any);
-  conv.json({ 'fulfillmentText': `更新好囉!` });
-});
-
-app.intent('試算表', (conv) => {
+app.intent('更新關鍵字實體', (conv) => {
   return sheetsGet().then((sheets) => {
     //console.log(sheets[1][1].split(", "));
     let entityList = [];
@@ -31,13 +26,18 @@ app.intent('試算表', (conv) => {
     }
     console.log(entityList);
     entitiesUpdate('Keywords', entityList);
-    conv.json({ 'fulfillmentText': `試算表長度: ${sheets}` });
+    conv.json({ 'fulfillmentText': `Entity更新完成` });
   });
 });
 
-app.intent('試算表2', (conv) => {
+app.intent('擴增知識2', (conv) => {
   sheetsUpdate(conv.body.queryResult.parameters.any);
   conv.json({ 'fulfillmentText': `助教正在審核內容中...` });
+});
+
+app.intent('新增Intents', (conv) => {
+  intentsCreate();
+  conv.json({ 'fulfillmentText': `看一下Intents` });
 });
 
 app.intent('選項功能', (conv) => {
