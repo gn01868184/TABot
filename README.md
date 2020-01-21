@@ -12,7 +12,8 @@
 1. 創建 [Dialogflow Agent](https://console.dialogflow.com/)
 2. `git clone https://github.com/gn01868184/TABot`
 3. `cd` 到 `functions` 資料夾
-4. + `npm install`
+4. npm 安裝
+  + `npm install`
   + `npm install -g firebase-tools`
   + `npm install actions-on-google`
   + `npm install googleapis@39 --save`
@@ -20,7 +21,7 @@
 6. 添加你的專案 $ `firebase use <project ID>`
   + project ID 在 Dialogflow **Settings** ⚙ > **General** tab > copy **Project ID**.
 7. 執行 `firebase deploy --only functions:dialogflowFirebaseFulfillment`
-8. 成功執行可以從 **Project Console** link > **Functions** > **Dashboard**
-  + 複製連結，例: `https://us-central1-<PROJECTID>.cloudfunctions.net/<FUNCTIONNAME>`
-9. 回到 Dialogflow > **Fulfillment** > **Enable** Webhook.
-10. 貼上 URL **URL** > **Save**.
+8. 成功執行可以從 **Project Console** 的連結 > **Functions** > **Dashboard**
+  + 複製連結，例： `https://us-central1-<PROJECTID>.cloudfunctions.net/<FUNCTIONNAME>`
+9. 回到 **Dialogflow** > **Fulfillment** > **貼上** Webhook.
+10. 貼上網址 **URL** > **Save**.
