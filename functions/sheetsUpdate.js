@@ -26,7 +26,7 @@ module.exports = function (input) {
   var request = {
     spreadsheetId: SPREADSHEET_ID,
     key: API_KEY,
-    range: 'Sheet1',
+    range: '工作表1',
     valueInputOption: 'USER_ENTERED',  // TODO: Update placeholder value.
     resource: {
       "values": [
