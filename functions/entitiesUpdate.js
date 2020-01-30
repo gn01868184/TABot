@@ -30,14 +30,14 @@ module.exports = function (displayName, entityList) {
         throw new EntityNotFoundError();
       })
   // Update the keywords EntityType with a new list of Entities.
-      .then((test) => {
-        console.log('Found entity: ', JSON.stringify(test));
+      .then((resEntity) => {
+        console.log('Found entity: ', JSON.stringify(resEntity));
 
         // Replace the EntityType's existing Entities with our new list.
-        test.entities = entityList;
+        resEntity.entities = entityList;
 
         const request = {
-          entityType: test,
+          entityType: resEntity,
           // Tell the API to only modify the 'entities' field, not any other
           // fields of the EntityType.
           updateMask: {
