@@ -19,6 +19,7 @@
     "firebase": "^6.6.2",
     "firebase-admin": "^5.13.1",
     "firebase-functions": "^2.0.2",
-    "googleapis": "^39.2.0"
+    "googleapis": "^39.2.0",
+    "neo4j-driver": "^4.0.1"
   }
 }
