@@ -2,15 +2,13 @@
 const dialogflow1 = require('dialogflow');
 const {dialogflow} = require('actions-on-google');
 const functions = require('firebase-functions');
-//const http = require('http');
-//const neo4j = require('neo4j-driver');
-//const axios = require('axios');
 const intentsUpdate = require('./intentsUpdate.js');
 const sheetsGet = require('./sheetsGet.js');
 const sheetsUpdate = require('./sheetsUpdate.js');
 const entitiesUpdate = require('./entitiesUpdate.js');
 const firebaseRead = require('./firebaseRead.js');
 const firebaseWrite = require('./firebaseWrite.js');
+const neo4jRead = require('./neo4jRead.js');
 
 const app = dialogflow({
   debug: true,
@@ -18,16 +16,9 @@ const app = dialogflow({
   clientId: '48279450292-dqn0hajau3qlq98qncipo4g50rbderpj.apps.googleusercontent.com',
 });
 
-app.intent('更新關鍵字實體', (conv) => {
-  const SPREADSHEET_ID = '1UIEQekmLryJJSolpJNc15qar1fp4q-txiQgw1X-leLk';
-  return sheetsGet(SPREADSHEET_ID).then((sheets) => {
-    let entityList = [];
-    for(let i=1;i<sheets.length;i++){
-      entityList.push({value: sheets[i][0], synonyms: sheets[i][1].split(", ")});
-    }
-    console.log(entityList);
-    entitiesUpdate('Keywords', entityList);
-    conv.json({ 'fulfillmentText': `Entity更新完成` });
+app.intent('連接Neo4j', (conv) => {
+  return neo4jRead().then((URL) => {
+    conv.json({ 'fulfillmentText': `投影片網址: ${URL}` });
   });
 });
 
@@ -48,6 +39,19 @@ app.intent('設定學號2', (conv) => {
   let studentID = JSON.parse(conv.body.queryResult.queryText);
   firebaseWrite(senderID, studentID);
   conv.json({ 'fulfillmentText': `設定好囉` });
+});
+
+app.intent('更新關鍵字實體', (conv) => {
+  const SPREADSHEET_ID = '1UIEQekmLryJJSolpJNc15qar1fp4q-txiQgw1X-leLk';
+  return sheetsGet(SPREADSHEET_ID).then((sheets) => {
+    let entityList = [];
+    for(let i=1;i<sheets.length;i++){
+      entityList.push({value: sheets[i][0], synonyms: sheets[i][1].split(", ")});
+    }
+    console.log(entityList);
+    entitiesUpdate('Keywords', entityList);
+    conv.json({ 'fulfillmentText': `Entity更新完成` });
+  });
 });
 
 app.intent('更新意圖', (conv) => {
