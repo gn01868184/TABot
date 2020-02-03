@@ -18,6 +18,7 @@
   + `npm install actions-on-google`
   + `npm install googleapis@39 --save`
   + `npm install --save firebase`
+  + `npm install neo4j-driver`
 5. 登入您的 Google 帳戶 `firebase login`
 6. 添加你的專案 $ `firebase use <project ID>`
   + project ID 在 Dialogflow **Settings** ⚙ > **General** tab > copy **Project ID**.
