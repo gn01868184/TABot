@@ -2,7 +2,6 @@
 const dialogflow1 = require('dialogflow');
 const {dialogflow} = require('actions-on-google');
 const functions = require('firebase-functions');
-//const firebase = require('firebase');
 //const http = require('http');
 //const neo4j = require('neo4j-driver');
 //const axios = require('axios');
@@ -10,6 +9,8 @@ const intentsUpdate = require('./intentsUpdate.js');
 const sheetsGet = require('./sheetsGet.js');
 const sheetsUpdate = require('./sheetsUpdate.js');
 const entitiesUpdate = require('./entitiesUpdate.js');
+const firebaseRead = require('./firebaseRead.js');
+const firebaseWrite = require('./firebaseWrite.js');
 
 const app = dialogflow({
   debug: true,
@@ -33,6 +34,20 @@ app.intent('更新關鍵字實體', (conv) => {
 app.intent('擴增知識2', (conv) => {
   sheetsUpdate(conv.body.queryResult.parameters.any);
   conv.json({ 'fulfillmentText': `助教正在審核內容中...` });
+});
+
+app.intent('讀取學號', (conv) => {
+  let number = JSON.parse(conv.body.originalDetectIntentRequest.payload.data.sender.id);
+  return firebaseRead(number).then((ID) => {
+    conv.json({ 'fulfillmentText': `你的學號是${ID}` });
+  });
+});
+
+app.intent('設定學號2', (conv) => {
+  let senderID = JSON.parse(conv.body.originalDetectIntentRequest.payload.data.sender.id);
+  let studentID = JSON.parse(conv.body.queryResult.queryText);
+  firebaseWrite(senderID, studentID);
+  conv.json({ 'fulfillmentText': `設定好囉` });
 });
 
 app.intent('更新意圖', (conv) => {
@@ -81,7 +96,7 @@ app.intent('更新意圖', (conv) => {
       });
       intentsUpdate(sheets[i][0], trainingPhrases, messages);
     }
-    conv.json({ 'fulfillmentText': `看一下Intents` });
+    conv.json({ 'fulfillmentText': `Intents更新完成` });
   });
 });
 
