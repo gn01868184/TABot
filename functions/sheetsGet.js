@@ -14,7 +14,9 @@ module.exports = function (SPREADSHEET_ID) {
       const rows = res.data.values;
       if (rows.length) {
         rows.map((row) => {
-          console.log(`${row[0]}, ${row[1]}, ${row[2]}`);
+          row.map((rowName) => {
+            console.log(`${rowName}`);
+          });
         });
         resolve(rows);
       } else {
