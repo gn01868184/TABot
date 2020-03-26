@@ -1,0 +1,28 @@
+{
+  "projectID": "test-pclcyl",
+  "API_KEY": "AIzaSyDdZyWBklrrnpqzBtbSw6kCr_DVmPVO4To",
+  "knowledgeMap": [
+    "你想了解的", "在", "了解相關課程↓"
+  ],
+  "amplifyKnowledge": "助教正在審核內容中...",
+  "gradeSheedID": "1zw_Y-SuJMNPn8-yPQBDIXa3Shq5xBa4by_zj0hZetkg",
+  "queryGrade": "你想查詢什麼成績呢",
+  "textbookCQL": "MATCH (a:Student{name: $name})-[rel]-(b)-[rel2]-(c)  RETURN c",
+  "textbook": [
+    "你可能需要了解", "在"
+  ],
+  "testSheetID": "1Bezl1MdNN2X06O57Prm1GeetZddC5ttwxh20N2PtyV4",
+  "testCQL": "MATCH (a:Student{name: $name})-[rel]-(b) RETURN b",
+  "testReplies": [
+    "A", "B", "C", "D"
+  ],
+  "answer": "答對囉!",
+  "wrongAnswer": "答錯囉!答案是",
+  "fastError": "你案太快了~稍後再說一次你要的功能",
+  "readStudentID": "你的學號是",
+  "setStudentID": "設定好囉",
+  "keywordsSheetID": "1UIEQekmLryJJSolpJNc15qar1fp4q-txiQgw1X-leLk",
+  "entityUpdate": "Entity更新完成",
+  "FAQSheetID": "1XFD6g__B-IkfG03wHr7H8QHQWORjZ326MviM3TcsC2Q",
+  "intentsUpdate": "Intents更新完成"
+}
